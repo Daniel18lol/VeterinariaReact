@@ -1,41 +1,34 @@
-import React, { useState,useEffect,useMemo } from 'react';
+import React, { Component} from 'react';
 
 const FormContext = React.createContext();
 
-export function FormProvider (props) {
-  const [pets,setPets] = useState([]);
-  useEffect(() => {
-    function loadPets(){
-      const petsStorage = window.localStorage.getItem('pets');
-      setPets(petsStorage);
-    }
-    loadPets();
-  },[]);
-  function handleAddPet(pet) {
-    setPets(prevPets => {
-      return {...prevPets,...pet}
-    })
-    window.localStorage.setItem('pets',pets)
-  };
-
-  const values = useMemo(() => {
-    return({
-      pets,
-      handleAddPet
-    });
-  },[pets]);
-  const { children } = props;
-  return (
-    <FormContext.Provider value={values} {...props}>
-      { children }
-    </FormContext.Provider>
-  );
-}
-
-export function usePets(){
-  const context = React.useContext(FormContext);
-  if(!context){
-    throw new Error('No hay contexto');
+class FormProvider extends Component {
+  state = {
+    pets: window.localStorage.getItem('pets') !== null ? window.localStorage.getItem('pets') : []
   }
-  return context;
+  componentDidMount() {
+    if(this.state.pets.length < 0) {
+      this.setState({pets:[]})
+    }
+  }
+
+   handleAddPet = newPet =>{
+     this.setState(prevState =>({
+      pets: [...prevState.pets,newPet]
+    }))
+    window.localStorage.setItem('pets',JSON.stringify(this.state.pets))
+  }
+  render(){
+    const {children} = this.props;
+    return (
+      <FormContext.Provider value={{
+          ...this.state,
+          addPet: this.handleAddPet
+        }}>
+          { children }
+      </FormContext.Provider>
+    );
+  }
 }
+const FormConsumer = FormContext.Consumer;
+export {FormContext,FormProvider,FormConsumer}

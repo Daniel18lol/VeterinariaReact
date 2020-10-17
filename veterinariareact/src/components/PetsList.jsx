@@ -1,14 +1,15 @@
-import React,{useEffect} from 'react';
-const usePets = require('../context/formContext');
+import React,{useContext,useEffect} from 'react';
+import {FormContext} from '../context/formContext'
 
-const PetsList = function(props){
-    const {pets} = usePets;
+export default function PetsList(){
+    const {pets} = useContext(FormContext);
+    console.log(pets)
     return(
-        <div className="card-deck">
-            {pets
-            ? (pets.map((pet,index) => {
-                    return <div className="card">
+        <div className="card-deck row">
+            { Array.isArray(pets) && pets.length ? (pets.map((pet) => {
+                    return <div key={pet.petName} className="card col-lg-3">
                         <div className="card-body">
+                            {console.log(pets)}
                             <h5 className="card-title">{pet.petName}</h5>
                             <p className="card-text">Sexo: {pet.petSex}</p>
                             <p className="card-text">Edad: {pet.petAge}</p>
@@ -24,4 +25,3 @@ const PetsList = function(props){
         </div>
     );
 }
-export {PetsList}
