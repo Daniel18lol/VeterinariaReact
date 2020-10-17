@@ -11,7 +11,7 @@ function App() {
         </nav>
       </header>
       <main className='container'>
-        <h1 className='mb-4 text-success text-uppercase'>Veterinaria ReactJS</h1>
+        <h1 className='mb-4 mt-4 text-black-50 text-uppercase'>Veterinaria ReactJS</h1>
         <Form/>
       </main>
     </div>

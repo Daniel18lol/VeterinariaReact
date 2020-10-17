@@ -1,13 +1,11 @@
 import React, {useState,useContext,useRef} from 'react';
 import {FormContext} from '../context/formContext'
+import '../css/PetsForm.css'
 
 export default function PetsForm(){
     //Variables de estado del formulario para los campos
     const [petName,setPetName] = useState('');
-    const [petSex,setPetSex] = useState('');
     const [petAge,setPetAge] = useState('');
-    const [petType,setPetType] = useState('');
-    const [petService,setPetService] = useState('');
     //Variables referencia para los select
     const inputSex = useRef()
     const inputType = useRef()
@@ -21,10 +19,7 @@ export default function PetsForm(){
     
     function cleanForm(){
         setPetName('');
-        setPetSex('');
         setPetAge('');
-        setPetType('');
-        setPetService('');
     }
 
     const handleAddPet = e => {
@@ -55,9 +50,9 @@ export default function PetsForm(){
       }
     return(
         <>
-        <form className='form-group w-75 mx-auto' onSubmit={handleAddPet}>
+        <form className='form-group mb-5 w-75 mx-auto' onSubmit={handleAddPet}>
             <label className='text-primary mb-2 mt-3' htmlFor="petName">Nombre de la mascota:</label>
-            <input className='form-control text-center' value={petName} type="text" name="petName" required onInput={handleChange}/>
+            <input className='form-control text-center' value={petName} type="text" name="petName" onInput={handleChange}/>
             <label className='text-primary mb-2 mt-3' htmlFor="petSex">Sexo de la mascota</label>
             <select className='form-control text-center' name="petSex" id="petSex" ref={inputSex}>
                 {sex.map(sex => {
@@ -65,7 +60,7 @@ export default function PetsForm(){
                 })}
             </select>
             <label className='text-primary mb-2 mt-3' htmlFor="petAge">Edad de la mascota:</label>
-            <input className='form-control text-center' value = {petAge} type="text" name="petAge" required onInput={handleChange}/>
+            <input className='form-control text-center' value = {petAge} type="text" name="petAge" onInput={handleChange}/>
             <label className='text-primary mb-2 mt-3' htmlFor="petType">Tipo de mascota:</label>
             <select className='form-control text-center' name="petType" id="petType" ref={inputType}>
                 {types.map(type => {

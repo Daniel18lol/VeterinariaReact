@@ -4,18 +4,12 @@ const FormContext = React.createContext();
 
 class FormProvider extends Component {
   state = {
-    pets: window.localStorage.getItem('pets') !== null ? window.localStorage.getItem('pets') : []
+    pets: JSON.parse(window.localStorage.getItem('pets'))?JSON.parse(window.localStorage.getItem('pets')):[]
   }
-  componentDidMount() {
-    if(this.state.pets.length < 0) {
-      this.setState({pets:[]})
-    }
-  }
-
    handleAddPet = newPet =>{
-     this.setState(prevState =>({
-      pets: [...prevState.pets,newPet]
-    }))
+     this.setState(prevState => ({
+      pets: prevState.pets.concat([newPet])
+     }))
     window.localStorage.setItem('pets',JSON.stringify(this.state.pets))
   }
   render(){
