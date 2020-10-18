@@ -5,7 +5,7 @@ export default function PetsList(){
     const {pets} = useContext(FormContext);
     return(
         <div className="card-deck">
-            <div className='row'>
+            <div className='row w-100'>
             { Array.isArray(pets) && pets.length ? (pets.map((pet) => {
                 return (
                         <div className='col-lg-3 mb-4 col-md-4 col-sm-6'>
