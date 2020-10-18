@@ -73,7 +73,7 @@ export default function PetsForm(){
                     return <option key={service} value={service}>{service}</option>
                 })}
             </select>
-            <button type='submit' className='btn btn-primary w-25 mx-auto mt-3'>Guardar Mascota</button>
+            <button type='submit' className='btn btn-lg btn-primary mx-auto mt-3'>Guardar Mascota</button>
         </form>
         </>
     )
